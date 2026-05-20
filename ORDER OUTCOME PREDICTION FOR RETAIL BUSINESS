@@ -1,0 +1,82 @@
+Online Retail Order Outcome Prediction
+
+Executive Summary
+This project presents a machine learning solution designed to predict the outcome of online retail orders, classifying them as either 'Successful' or 'At-Risk'. Leveraging a comprehensive data science approach encompassing data cleaning, exploratory data analysis, sophisticated feature engineering, and robust predictive modeling, the system aims to empower retail businesses.
+
+The core objective is to enable proactive identification of orders likely to be cancelled, returned, or pending before fulfillment. By doing so, businesses can significantly reduce operational losses, optimize resource allocation, and enhance customer satisfaction through timely interventions for high-risk orders. The developed model demonstrates high accuracy and predictive power, offering a valuable tool for strategic decision-making in online retail operations.
+
+Table of Contents
+1.  [Project Introduction](#project-introduction)
+2.  [Importing Libraries](#importing-libraries)
+3.  [Loading the Dataset](#loading-the-dataset)
+4.  [Understanding the Dataset](#understanding-the-dataset)
+5.  [Data Cleaning & Preprocessing](#data-cleaning--preprocessing)
+6.  [Framing the Target Variable](#framing-the-target-variable)
+7.  [Exploratory Data Analysis](#exploratory-data-analysis)
+8.  [Feature Engineering](#feature-engineering)
+9.  [Encoding Categorical Variables](#encoding-categorical-variables)
+10. [Defining Features and Target](#defining-features-and-target)
+11. [Train-Test Split](#train-test-split)
+12. [Modeling](#modeling)
+13. [Model Evaluation](#model-evaluation)
+14. [Visualising Model Performance](#visualising-model-performance)
+15. [Hyperparameter Tuning (Best Model)](#hyperparameter-tuning-best-model)
+16. [Confusion Matrix (LightGBM Model)](#confusion-matrix-lightgbm-model)
+17. [Feature Importance](#feature-importance)
+18. [Saving the Model](#saving-the-model)
+19. [Sample Data — Testing the Model](#sample-data--testing-the-model)
+20. [Preprocessing Sample Data](#preprocessing-sample-data)
+21. [Predictions on Sample Data](#predictions-on-sample-data)
+22. [Loading the Model Later](#loading-the-model-later)
+23. [Summary of Findings](#summary-of-findings)
+24. [Conclusion](#conclusion)
+
+## Project Introduction
+This project focuses on building a machine learning system capable of predicting whether an online retail order will be successful or at-risk. The project applies data science processes such as data cleaning, exploratory data analysis, feature engineering, predictive modeling, and model evaluation.
+
+The objective of the project is to help retail businesses proactively identify risky orders (cancelled, returned, or pending) before fulfillment, thereby reducing operational losses and improving customer satisfaction.
+
+## Key Features and Methodology
+-   **Data Cleaning & Preprocessing**: Handling duplicates, missing values (e.g., `CouponCode`), and converting data types (`Date`).
+-   **Target Variable Framing**: Transforming raw `OrderStatus` into a binary `OrderSuccess` (Successful vs. At-Risk).
+-   **Exploratory Data Analysis (EDA)**: Visualizing numerical distributions, success rates across categorical features (Product, Payment Method, Referral Source), and inter-feature correlations.
+-   **Feature Engineering**: Creating new predictive features such as `Month`, `Day`, `DayOfWeek`, `IsWeekend`, `CartFillRate`, `HighValueOrder`, `PriceTier`, `CustomerOrderCount`, `CustomerSuccessRate`, and `ProductSuccessRate`.
+-   **Model Training**: Training and evaluating multiple classification models: Decision Tree, Logistic Regression, Random Forest, XGBoost, and LightGBM.
+-   **Hyperparameter Tuning**: Optimizing model performance using `GridSearchCV` on top-performing models (Random Forest and LightGBM).
+-   **Model Evaluation**: Comprehensive assessment using Accuracy, F1 Score, ROC-AUC, Classification Reports, Confusion Matrices, and ROC Curves.
+-   **Feature Importance Analysis**: Identifying the most influential factors driving order outcomes.
+-   **Model Persistence**: Saving the best model and preprocessing tools for future deployment.
+
+## Key Findings and Results
+-   The dataset revealed a class imbalance, with **61.2% of orders being 'At-Risk' and 38.8% 'Success'**, addressed by using `class_weight='balanced'` in models.
+-   All trained models exhibited exceptionally high performance, with **Accuracy, F1 Score, and ROC-AUC consistently above 0.99**.
+-   **LightGBM** emerged as the best-performing model after hyperparameter tuning, achieving an **ROC-AUC of 0.9999** on the test set.
+-   The confusion matrix for LightGBM showed minimal errors (1 False Positive, 1 False Negative), demonstrating its robust and reliable prediction capabilities.
+-   **Feature Importance** analysis highlighted `UnitPrice`, `Day`, `TotalPrice`, `CustomerSuccessRate`, and `ItemsInCart` as the most significant predictors of order outcome.
+
+## How to Use This Repository
+
+To run this notebook and reproduce the analysis:
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone <repository-url>
+    cd <repository-name>
+    ```
+2.  Open in Google Colab**: Upload `Online_Retail_Order_Outcome_Prediction.ipynb` to Google Colab.
+3.  **Upload Data**: Ensure the `Online-Store-Orders.xlsx` dataset is available in your Colab environment (e.g., upload it to `/content/` or your Google Drive).
+4.  **Install Dependencies**: All necessary libraries are imported and should be available in Colab by default or installed as part of the initial code cells.
+5.  **Run All Cells**: Execute all cells in the notebook sequentially.
+
+Making Predictions on New Data
+To use the saved model for new predictions, refer to the `SECTION 21: LOADING THE MODEL LATER` section in the notebook. You will need to upload the `binary_order_outcome_model.pkl` and `ordinal_encoder.pkl` files (generated in `SECTION 18`) to your Colab session and re-run the prediction steps.
+
+File Structure
+-   `Online_Retail_Order_Outcome_Prediction.ipynb`: The main Jupyter Notebook containing all the code and analysis.
+-   `Online-Store-Orders.xlsx`: The dataset used for this project.
+-   `binary_order_outcome_model.pkl`: The saved best machine learning model.
+-   `ordinal_encoder.pkl`: The saved OrdinalEncoder object used for preprocessing.
+
+Conclusion
+This project successfully delivered a highly accurate and robust machine learning system to predict online retail order outcomes. By meticulously following a structured data science pipeline, we built a model capable of distinguishing between successful and at-risk orders with exceptional performance. The LightGBM model, after hyperparameter tuning, achieved an outstanding ROC-AUC of 0.9999 on unseen data, with feature importance analysis highlighting key drivers of order success. This system enables proactive identification of high-risk orders, significantly reducing operational losses and enhancing customer satisfaction. The notebook provides a complete and reproducible workflow for integrating advanced analytics into online retail operations.
+Colab paid products - Cancel contracts here
